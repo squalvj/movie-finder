@@ -1,10 +1,11 @@
 import React, { Component } from 'react'
 import {Text} from 'react-native';
 import COMMONCSS from 'styles'
+import {connect} from 'react-redux'
 const {
    Wrapper
  } = COMMONCSS
-export default class StartupContainer extends Component {
+class StartupContainer extends Component {
    componentDidMount() {
       
    }
@@ -16,3 +17,19 @@ export default class StartupContainer extends Component {
       )
    }
 }
+
+function mapDispatchToProps(dispatch) {
+   return {
+    
+   };
+ }
+ 
+ const mapStateToProps = state => ({
+   isLoading: state.common
+ });
+ 
+ export default connect(
+   mapStateToProps,
+   mapDispatchToProps
+ )(StartupContainer);
+ 

@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {StyleSheet, Text, View, Animated} from 'react-native';
+import {Animated} from 'react-native';
 import {
   createDrawerNavigator,
   createStackNavigator,
@@ -37,6 +37,7 @@ const MainPages = createStackNavigator(
   }
 );
 
+// THIS IS USEFUL FOR FUTURE USE IF WANT TO IMPLEMENT SIDEBAR
 const AppNavigator = createDrawerNavigator(
   {
     Main: { screen: MainPages },

@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import {Platform, StyleSheet, Text, View} from 'react-native';
-export default class MovieDetail extends Component {
+import { connect } from 'react-redux';
+class MovieDetail extends Component {
    render() {
       return (
          <View>
@@ -9,3 +10,19 @@ export default class MovieDetail extends Component {
       )
    }
 }
+
+function mapDispatchToProps(dispatch) {
+   return {
+     
+   };
+ }
+ 
+ const mapStateToProps = state => ({
+   movies: state.movies
+ });
+ 
+ export default connect(
+   mapStateToProps,
+   mapDispatchToProps
+ )(MovieDetail);
+ 
