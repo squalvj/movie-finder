@@ -7,7 +7,11 @@ import {
 } from 'react-navigation';
 import StartupContainer from './container/StartupContainer'
 import MovieDetail from './container/MovieDetail'
+import COMMONCSS from './styles'
 
+const {
+  Wrapper
+} = COMMONCSS
 
 const MainPages = createStackNavigator(
   {
@@ -46,35 +50,17 @@ export default class App extends Component{
   navigator
 
   render() {
+    console.log({Wrapper, COMMONCSS})
     const AppContainer = createAppContainer(AppNavigator);
     return (
-      <View style={{flex: 1}}>
+      <Wrapper>
         <AppContainer
           screenProps={'locked-closed'}
           ref={c => {
             this.navigator = c;
           }}
         />
-      </View>
+      </Wrapper>
     );
   }
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#F5FCFF',
-  },
-  welcome: {
-    fontSize: 20,
-    textAlign: 'center',
-    margin: 10,
-  },
-  instructions: {
-    textAlign: 'center',
-    color: '#333333',
-    marginBottom: 5,
-  },
-});
