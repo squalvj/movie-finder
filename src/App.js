@@ -44,12 +44,11 @@ const AppNavigator = createDrawerNavigator(
 
 export default class App extends Component{
   navigator
+
   render() {
-    console.log({animated: Animated})
     const AppContainer = createAppContainer(AppNavigator);
     return (
       <View style={{flex: 1}}>
-        <Text></Text>
         <AppContainer
           screenProps={'locked-closed'}
           ref={c => {
