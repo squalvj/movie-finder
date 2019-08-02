@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {StyleSheet, Text, View} from 'react-native';
+import {StyleSheet, Text, View, Animated} from 'react-native';
 import {
   createDrawerNavigator,
   createStackNavigator,
@@ -24,7 +24,7 @@ const MainPages = createStackNavigator(
     transitionConfig: () => ({
       transitionSpec: {
         duration: 0,
-        timing: 1000,
+        timing: Animated.timing,
       },
     }),
     animationEnabled: false,
@@ -45,6 +45,7 @@ const AppNavigator = createDrawerNavigator(
 export default class App extends Component{
   navigator
   render() {
+    console.log({animated: Animated})
     const AppContainer = createAppContainer(AppNavigator);
     return (
       <View style={{flex: 1}}>
