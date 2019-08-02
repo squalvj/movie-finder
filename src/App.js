@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {StyleSheet, Text, View, Animated} from 'react-native';
+import {StyleSheet, Text, View} from 'react-native';
 import {
   createDrawerNavigator,
   createStackNavigator,
@@ -24,7 +24,7 @@ const MainPages = createStackNavigator(
     transitionConfig: () => ({
       transitionSpec: {
         duration: 0,
-        timing: Animated.timing,
+        timing: 1000,
       },
     }),
     animationEnabled: false,
@@ -39,16 +39,6 @@ const AppNavigator = createDrawerNavigator(
   },
   {
     initialRouteName: 'Main',
-    headerMode: 'none',
-    drawerLockMode: 'locked-closed',
-    // contentComponent: props => <SideBar {...props} />,
-    navigationOptions: {
-      tabBarVisible: false,
-      gesturesEnabled: false,
-    },
-    animationEnabled: false,
-    swipeEnabled: false,
-    lazy: true,
   }
 );
 
