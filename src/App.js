@@ -7,7 +7,7 @@ import {
 } from 'react-navigation';
 import StartupContainer from './container/StartupContainer'
 import MovieDetail from './container/MovieDetail'
-import COMMONCSS from './styles'
+import COMMONCSS from 'styles'
 
 const {
   Wrapper
@@ -50,7 +50,6 @@ export default class App extends Component{
   navigator
 
   render() {
-    console.log({Wrapper, COMMONCSS})
     const AppContainer = createAppContainer(AppNavigator);
     return (
       <Wrapper>
