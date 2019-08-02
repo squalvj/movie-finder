@@ -4,11 +4,13 @@
   "private": true,
   "scripts": {
     "start": "node node_modules/react-native/local-cli/cli.js start",
+    "start:ios": "ENVFILE=.env.development react-native run-ios --simulator=\"iPhone 6\"",
     "test": "jest"
   },
   "dependencies": {
     "react": "16.8.3",
-    "react-native": "0.59.9"
+    "react-native": "0.59.9",
+    "react-native-config": "^0.11.7"
   },
   "devDependencies": {
     "@babel/core": "^7.5.5",
