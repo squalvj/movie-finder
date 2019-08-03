@@ -2,9 +2,9 @@ import {
    list,
    call
 } from './../services/index'
-import {Alert} from 'react-native'
+import { Alert } from 'react-native'
 import { dispatch } from 'utils'
-import {setMovies} from 'reducers/Movie'
+import { setMovies, addMovies } from 'reducers/Movie'
 
 export const searchMovie = (searchCriteria, page = 1) => {
    call(
@@ -18,6 +18,20 @@ export const searchMovie = (searchCriteria, page = 1) => {
       },
       handlerSearchFailed
    ).then(e => dispatch(setMovies(e)))
+}
+
+export const addTheMovies = (searchCriteria, page = 1) => {
+   call(
+      {
+         url: list.search,
+         method: 'get',
+         params: {
+            s: searchCriteria,
+            page
+         }
+      },
+      handlerSearchFailed
+   ).then(e => dispatch(addMovies(e)))
 }
 
 export const searchMovieById = (id) => {

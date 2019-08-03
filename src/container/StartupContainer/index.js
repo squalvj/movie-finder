@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
-import {Image, Text, View, TextInput, FlatList} from 'react-native';
+import { Image, Text, View, TextInput, ScrollView } from 'react-native';
 import { connect } from 'react-redux'
-import { searchMovie } from 'modules/Movie'
+import { searchMovie, addTheMovies } from 'modules/Movie'
+import { get } from 'lodash'
 import styled from 'styled-components/native'
 import ListItem from 'components/List'
 import Loader from 'components/Loader'
@@ -45,12 +46,12 @@ const ButtonS = styled(ButtonCommon)`
    border-left-width: 0px;
 `;
 class StartupContainer extends Component {
-
    constructor(props) {
       super(props)
       this.state = {
          input: '',
-         searchQuery: ''
+         searchQuery: '',
+         isInfiniteScrollRun: true
       }
    }
 
@@ -62,13 +63,15 @@ class StartupContainer extends Component {
       if (isLoading || searchQuery === input) return false;
 
       this.setState({
-         searchQuery: input
+         searchQuery: input,
+         isInfiniteScrollRun: false
       }, () => searchMovie(input));
    }
 
-   _renderItem = (item) => {
+   _renderItem = (item, index) => {
       return (
          <ListItem 
+            key={index}
             title={item.Title}
             id={item.imdbID}
             image={checkImageExist(item.Poster)}
@@ -93,23 +96,52 @@ class StartupContainer extends Component {
       toggleModal(content)
    }
 
+   handlePagination = () => {
+      const { movies, isLoading } = this.props
+      const { searchQuery } = this.state
+      const offsetMovies = 10;
+      const totalResult = parseInt(get(movies, 'totalResults', 0));
+      const moviesCount = get(movies, 'Search', []).length
+      const isPaginationStillExist = Math.round(moviesCount / offsetMovies) < totalResult
+      const thePage = Math.floor(moviesCount / offsetMovies) + 1
+      if (isPaginationStillExist && !isLoading){
+         addTheMovies(searchQuery, thePage)
+         this.setState({
+            isInfiniteScrollRun: true
+         })
+      }
+   }
+
+   trackScroll = ({nativeEvent}) => {
+      if(this.isCloseToBottom(nativeEvent)){
+         this.handlePagination()
+      }
+   }
+
+   isCloseToBottom = ({layoutMeasurement, contentOffset, contentSize}) => {
+      return layoutMeasurement.height + contentOffset.y >= contentSize.height - 20;
+   }
+
    render() {
       const {
          movies,
          isLoading
       } = this.props
       const {
-         input
+         input,
+         isInfiniteScrollRun
       } = this.state
-      const theContent = isLoading 
+      const theContent = isLoading && !isInfiniteScrollRun
          ? <Loader />
-         : <FlatList 
-               data={movies.Search || []}
-               keyExtractor={(item) => item.imdbID}
-               renderItem={({item, index}) => this._renderItem(item, index)}
-               style={{flex: 1}}
-               extraData={movies.Search}
-            />
+         : <Wrapper style={{flex: 1}}>
+            <ScrollView style={{paddingBottom: 50}} onScroll={this.trackScroll} >
+               {(movies.Search || []).map((item, index) => {
+                  return this._renderItem(item, index)
+               })}
+
+               {isLoading && <Loader />}
+            </ScrollView>
+         </Wrapper>
       
       return (
          <Container>
