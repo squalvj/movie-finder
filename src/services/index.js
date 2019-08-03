@@ -1,6 +1,11 @@
 import axios from 'axios';
 import apiList from './list'
 import config from 'react-native-config'
+import {dispatch} from './../utils'
+import {
+   showLoader,
+   hideLoader
+} from './../reducers/Common'
 const {
    API_URL,
    API_KEY
@@ -43,7 +48,7 @@ export const call = (obj, errHandling = false) => {
    let instance = axios.create()
 
    // useful for custom error handling
-   const theErroHandling = !!errHandling ? errHandling : resIntersceptor
+   const theErroHandling = !!errHandling ? () => {dispatch(hideLoader()); return errHandling} : resIntersceptor
 
    // Add a request interceptor
    instance.interceptors.request.use(config => reqInterceptor(config, cancel), interceptReqErr);
@@ -66,6 +71,7 @@ const reqInterceptor = (config, cancel) => {
    if (__DEV__)
       console.log(`${config.baseURL} `, {config})
    // cancel() for canceling the request
+   dispatch(showLoader())
    return config
 }
 
@@ -81,6 +87,8 @@ const resIntersceptor = response => {
    // TRANSFORM DATA FROM DOWNSTREAM INTO WHATEVER YOU WANT
    if (__DEV__)
       console.log(`${response.config.url} `, response.data)
+      
+   dispatch(hideLoader());
    return response.data
 }
 
