@@ -2,7 +2,7 @@ import update from 'immutability-helper';
 import {makeActionCreator} from './../utils'
 
 const INITIAL_STATE = {
-   movies: []
+   movies: {}
  };
 
 const prefix = 'movies/';
@@ -23,7 +23,7 @@ const ACTION = {
    SET_MOVIES: handleSet,
 }
 
-export const setMovies = makeActionCreator(injectPrefix('SET_MOVIES'))
+export const setMovies = makeActionCreator(injectPrefix('SET_MOVIES'), 'payload')
 
 export default function reducer(state = INITIAL_STATE, action) {
    const typeWithoutPrefix = (action.type && action.type.split('/')[1])

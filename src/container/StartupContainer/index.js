@@ -2,14 +2,20 @@ import React, { Component } from 'react'
 import {Text} from 'react-native';
 import COMMONCSS from 'styles'
 import {connect} from 'react-redux'
+import {searchMovie} from 'modules/Movie'
 const {
    Wrapper
  } = COMMONCSS
 class StartupContainer extends Component {
-   componentDidMount() {
-      
+
+   componentWillMount() {
+      searchMovie('batman')
    }
    render() {
+      const {
+         movies
+      } = this.props
+      
       return (
          <Wrapper>
             <Text>STARTUPCONTAINER</Text>
@@ -25,7 +31,8 @@ function mapDispatchToProps(dispatch) {
  }
  
  const mapStateToProps = state => ({
-   isLoading: state.common
+   isLoading: state.common,
+   movies: state.movies.movies
  });
  
  export default connect(
