@@ -48,7 +48,7 @@ export const call = (obj, errHandling = false) => {
    let instance = axios.create()
 
    // useful for custom error handling
-   const theErroHandling = !!errHandling ? response => {dispatch(hideLoader()); return errHandling(response)} : resIntersceptor
+   const theErroHandling = !!errHandling ? response => wrapperCustomHandler(response, errHandling) : resIntersceptor
 
    // Add a request interceptor
    instance.interceptors.request.use(config => reqInterceptor(config, cancel), interceptReqErr);
@@ -57,6 +57,14 @@ export const call = (obj, errHandling = false) => {
    instance.interceptors.response.use(theErroHandling, interceptResErr);
    
    return instance.request(config).then(theHandler);
+}
+
+const wrapperCustomHandler = (response, callback) => {
+   if (__DEV__)
+      console.log(`${response.config.url} `, response.data);
+
+   dispatch(hideLoader()); 
+   return callback(response);
 }
 
 const theHandler = (res, err) => {
