@@ -5,6 +5,8 @@
   "scripts": {
     "start": "node node_modules/react-native/local-cli/cli.js start",
     "start:ios": "ENVFILE=.env.development react-native run-ios --simulator=\"iPhone 6\"",
+    "start:android": "ENVFILE=.env.development react-native run-android",
+    "build:android": "cd android && ENVFILE=.env.production ./gradlew assembleRelease",
     "test": "jest"
   },
   "dependencies": {
