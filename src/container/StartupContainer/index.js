@@ -49,15 +49,21 @@ class StartupContainer extends Component {
    constructor(props) {
       super(props)
       this.state = {
+         input: '',
          searchQuery: ''
       }
    }
 
    handleSearch = () => {
       const { isLoading } = this.props
-      const { searchQuery } = this.state
-      if (isLoading) return false;
-      searchMovie(searchQuery);
+      const { input, searchQuery } = this.state
+
+      // check if is loading and previous query same with now query, then dont do repetitive
+      if (isLoading || searchQuery === input) return false;
+
+      this.setState({
+         searchQuery: input
+      }, () => searchMovie(input));
    }
 
    _renderItem = (item) => {
@@ -93,7 +99,7 @@ class StartupContainer extends Component {
          isLoading
       } = this.props
       const {
-         searchQuery
+         input
       } = this.state
       const theContent = isLoading 
          ? <Loader />
@@ -111,8 +117,8 @@ class StartupContainer extends Component {
                <HeaderMovie>MOVIE FINDER !!!</HeaderMovie>
                <WrapperForm>
                <Input
-                  onChangeText={text => this.setState({searchQuery: text})}
-                  value={searchQuery}
+                  onChangeText={text => this.setState({input: text})}
+                  value={input}
                />
                <ButtonS onPress={this.handleSearch}>
                   <Text>FIND</Text>
@@ -125,7 +131,7 @@ class StartupContainer extends Component {
    }
 }
 
-function mapDispatchToProps(dispatch) {
+function mapDispatchToProps() {
    return {
     
    };

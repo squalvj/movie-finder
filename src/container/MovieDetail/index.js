@@ -17,10 +17,6 @@ const WrapperNavbar = styled(Wrapper)`
    background-color: #3498db;
 `;
 
-const ContainerMovieDetail = styled(Wrapper)`
-
-`;
-
 const WrapperContent = styled(Wrapper)`
    padding: 20px;
 `;
@@ -136,14 +132,14 @@ class MovieDetail extends Component {
          : movieDetailRenderer()
 
       return (
-         <ContainerMovieDetail>
+         <Wrapper>
             <WrapperNavbar>
                <ButtonBack onPress={() => navigation.goBack()}>
                   <Back>BACK</Back>
                </ButtonBack>
             </WrapperNavbar>
             {theContent}
-         </ContainerMovieDetail>
+         </Wrapper>
       )
    }
 }
