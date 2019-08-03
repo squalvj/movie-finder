@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import {View, Text, Image, TouchableOpacity} from 'react-native'
+import {View, Text, Image, TouchableWithoutFeedback, TouchableOpacity} from 'react-native'
 import styled from 'styled-components/native';
 import COMMONCSS from 'styles'
 
@@ -39,9 +39,9 @@ export default class ListItem extends Component {
       } = this.props
       return (
          <List>
-            <View>
-               <ImageList onPress={() => handleClickImage(image)} source={{uri: image}} />
-            </View>
+            <TouchableWithoutFeedback onPress={() => handleClickImage(image)}>
+               <ImageList source={{uri: image}} />
+            </TouchableWithoutFeedback>
             <TouchableOpacity style={{flex: 1}} key={id} onPress={() => handleClick(id)}>
                <Title numberOfLines={2}>{title}</Title>
                <Content>{content}</Content>

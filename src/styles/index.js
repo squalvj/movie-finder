@@ -1,5 +1,5 @@
 import styled from 'styled-components/native';
-import {Button} from 'react-native'
+import {TouchableOpacity} from 'react-native'
 // import {Dimensions} from 'react-native'
 // const { width } = Dimensions.get('window');
 import {
@@ -20,8 +20,13 @@ const Container = styled(Wrapper)`
   padding-right: 20px;
 `
 
-const ButtonCommon = styled(Button)`
+const ButtonCommon = styled(TouchableOpacity)`
   background: #3498db;
+  align-items: center;
+  justify-content: center;
+  min-width: 50px;
+  height: 100%;
+  flex: 1;
 `
 
 export default {

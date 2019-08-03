@@ -1,4 +1,8 @@
 import { store } from './../store/setup'
+import {
+  setModal,
+  showModal
+} from 'reducers/Common'
 
 export function makeActionCreator(type, ...argNames) {
    return function(...args) {
@@ -13,3 +17,11 @@ export function makeActionCreator(type, ...argNames) {
 export const dispatch = func => {
   store && store.dispatch(func);
 };
+
+export const toggleModal = content => {
+  const updateModalContent = () => {
+    dispatch(setModal(content))
+    return Promise.resolve()
+  }
+  updateModalContent().then(() => dispatch(showModal()))
+}

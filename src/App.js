@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import {Animated} from 'react-native';
+import ModalWrapper from 'components/Modal'
 import {
   createDrawerNavigator,
   createStackNavigator,
@@ -60,6 +61,7 @@ export default class App extends Component{
             this.navigator = c;
           }}
         />
+        <ModalWrapper />
       </Wrapper>
     );
   }

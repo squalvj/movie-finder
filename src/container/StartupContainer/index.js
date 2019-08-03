@@ -1,10 +1,13 @@
 import React, { Component } from 'react'
-import {SafeAreaView, Text, View, TextInput, ActivityIndicator, FlatList, TouchableOpacity} from 'react-native';
+import {SafeAreaView, Image, Text, View, TextInput, ActivityIndicator, FlatList, TouchableOpacity} from 'react-native';
 import COMMONCSS from 'styles'
 import {connect} from 'react-redux'
 import {searchMovie} from 'modules/Movie'
 import styled from 'styled-components/native'
 import ListItem from 'components/List'
+import {
+   toggleModal
+} from 'utils'
 const {
    Wrapper,
    Header,
@@ -34,7 +37,10 @@ const Input = styled(TextInput)`
 
 const ButtonS = styled(ButtonCommon)`
    flex: 1;
-   max-height: 50px;
+   max-width: 70px;
+   background: transparent;
+   border: 1px solid black;
+   border-left-width: 0px;
 `;
 class StartupContainer extends Component {
 
@@ -46,13 +52,13 @@ class StartupContainer extends Component {
    }
 
    handleSearch = () => {
-      const {
-         searchQuery
-      } = this.state
+      const { isLoading } = this.props
+      const { searchQuery } = this.state
+      if (isLoading) return false;
       searchMovie(searchQuery);
    }
 
-   _renderItem = (item, index) => {
+   _renderItem = (item) => {
       return (
          <ListItem 
             title={item.Title}
@@ -60,12 +66,20 @@ class StartupContainer extends Component {
             image={item.Poster}
             content={item.Year}
             handleClick={this.handlePressList}
+            handleClickImage={this.handlePressImage}
          />
       )
    }
 
    handlePressList = id => {
       console.log({id})
+   }
+
+   handlePressImage = img => {
+      const content = <View style={{flex: 1}}>
+         <Image style={{flex: 1}} source={{uri: img}} />
+      </View>
+      toggleModal(content)
    }
 
    render() {
@@ -96,10 +110,9 @@ class StartupContainer extends Component {
                      onChangeText={text => this.setState({searchQuery: text})}
                      value={searchQuery}
                   />
-                  <ButtonS 
-                     onPress={this.handleSearch}
-                     title="FIND"
-                  />
+                  <ButtonS onPress={this.handleSearch}>
+                     <Text>FIND</Text>
+                  </ButtonS>
                   </WrapperForm>
                   {theContent}
                </Wrapper>
