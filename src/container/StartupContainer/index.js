@@ -102,8 +102,9 @@ class StartupContainer extends Component {
       const offsetMovies = 10;
       const totalResult = parseInt(get(movies, 'totalResults', 0));
       const moviesCount = get(movies, 'Search', []).length
-      const isPaginationStillExist = Math.round(moviesCount / offsetMovies) < totalResult
-      const thePage = Math.floor(moviesCount / offsetMovies) + 1
+      const isPaginationStillExist = moviesCount < totalResult
+      console.log({isPaginationStillExist, movies, moviesCount})
+      const thePage = Math.ceil(moviesCount / offsetMovies) + 1
       if (isPaginationStillExist && !isLoading){
          addTheMovies(searchQuery, thePage)
          this.setState({
