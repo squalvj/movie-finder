@@ -1,10 +1,12 @@
 import React, { Component, Fragment } from 'react'
-import { Text, View, Image, ScrollView, ActivityIndicator } from 'react-native';
+import { Text, View, Image, ScrollView } from 'react-native';
+import Loader from 'components/Loader'
 import { connect } from 'react-redux';
 import { searchMovieById } from 'modules/Movie'
 import styled from 'styled-components/native'
 import COMMONCSS from 'styles'
 import { get } from 'lodash'
+import { checkImageExist } from 'utils'
 const {
    Wrapper,
    ButtonCommon
@@ -98,34 +100,40 @@ class MovieDetail extends Component {
          </Fragment>
       ))
 
+      const movieDetailRenderer = () => (
+         <ScrollView style={{flex: 1}}>
+            <WrapperContent>
+               <WrapperPoster>
+                  <Image resizeMode={'contain'} style={{flex: 1}} source={{uri: checkImageExist(poster)}}/>
+               </WrapperPoster>
+                  <Title>{title}</Title>
+               <Row>
+                  <Bold>Director: </Bold>
+                  <Normal>{director}</Normal>
+               </Row>
+               <Row>
+                  <Bold>Actors: </Bold>
+                  <Normal>{actors}</Normal>
+               </Row>
+               <Row>
+                  <Bold>Genre: </Bold>
+                  <Normal>{genre}</Normal>
+               </Row>
+               <Row>
+                  <Bold>Ratings: </Bold>
+               </Row>
+               {ratings}
+               <Row>
+                  <Bold>Plot: </Bold>
+                  <Normal>{plot}</Normal>
+               </Row>
+            </WrapperContent>
+         </ScrollView>
+      )
+
       const theContent = isLoading 
-         ? <ActivityIndicator style={{flex: 1}} size="large" color="#0000ff" /> 
-         : <WrapperContent>
-            <WrapperPoster>
-               <Image resizeMode={'contain'} style={{flex: 1}} source={{uri: poster}}/>
-            </WrapperPoster>
-            <Title>{title}</Title>
-            <Row>
-               <Bold>Director: </Bold>
-               <Normal>{director}</Normal>
-            </Row>
-            <Row>
-               <Bold>Actors: </Bold>
-               <Normal>{actors}</Normal>
-            </Row>
-            <Row>
-               <Bold>Genre: </Bold>
-               <Normal>{genre}</Normal>
-            </Row>
-            <Row>
-               <Bold>Ratings: </Bold>
-            </Row>
-            {ratings}
-            <Row>
-               <Bold>Plot: </Bold>
-               <Normal>{plot}</Normal>
-            </Row>
-         </WrapperContent>
+         ? <Loader />
+         : movieDetailRenderer()
 
       return (
          <ContainerMovieDetail>
@@ -134,9 +142,7 @@ class MovieDetail extends Component {
                   <Back>BACK</Back>
                </ButtonBack>
             </WrapperNavbar>
-            <ScrollView style={{flex: 1}}>
-               {theContent}
-            </ScrollView>
+            {theContent}
          </ContainerMovieDetail>
       )
    }

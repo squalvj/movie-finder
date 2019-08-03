@@ -25,3 +25,9 @@ export const toggleModal = content => {
   }
   updateModalContent().then(() => dispatch(showModal()))
 }
+
+export const checkImageExist = img => {
+  return img == 'N/A'
+    ? null
+    : img
+};

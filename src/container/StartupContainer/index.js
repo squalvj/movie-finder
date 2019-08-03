@@ -1,11 +1,13 @@
 import React, { Component } from 'react'
-import {Image, Text, View, TextInput, ActivityIndicator, FlatList, TouchableOpacity} from 'react-native';
+import {Image, Text, View, TextInput, FlatList} from 'react-native';
 import { connect } from 'react-redux'
 import { searchMovie } from 'modules/Movie'
 import styled from 'styled-components/native'
 import ListItem from 'components/List'
+import Loader from 'components/Loader'
 import {
-   toggleModal
+   toggleModal,
+   checkImageExist
 } from 'utils'
 import COMMONCSS from 'styles'
 const {
@@ -63,7 +65,7 @@ class StartupContainer extends Component {
          <ListItem 
             title={item.Title}
             id={item.imdbID}
-            image={item.Poster}
+            image={checkImageExist(item.Poster)}
             content={item.Year}
             handleClick={this.handlePressList}
             handleClickImage={this.handlePressImage}
@@ -94,7 +96,7 @@ class StartupContainer extends Component {
          searchQuery
       } = this.state
       const theContent = isLoading 
-         ? <ActivityIndicator style={{flex: 1}} size="large" color="#0000ff" /> 
+         ? <Loader />
          : <FlatList 
                data={movies.Search || []}
                keyExtractor={(item) => item.imdbID}
