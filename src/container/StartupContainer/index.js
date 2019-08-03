@@ -1,13 +1,13 @@
 import React, { Component } from 'react'
-import {SafeAreaView, Image, Text, View, TextInput, ActivityIndicator, FlatList, TouchableOpacity} from 'react-native';
-import COMMONCSS from 'styles'
-import {connect} from 'react-redux'
-import {searchMovie} from 'modules/Movie'
+import {Image, Text, View, TextInput, ActivityIndicator, FlatList, TouchableOpacity} from 'react-native';
+import { connect } from 'react-redux'
+import { searchMovie } from 'modules/Movie'
 import styled from 'styled-components/native'
 import ListItem from 'components/List'
 import {
    toggleModal
 } from 'utils'
+import COMMONCSS from 'styles'
 const {
    Wrapper,
    Header,
@@ -72,7 +72,10 @@ class StartupContainer extends Component {
    }
 
    handlePressList = id => {
-      console.log({id})
+      const { navigation } = this.props
+      navigation.navigate('MovieDetail', {
+         id,   
+      });
    }
 
    handlePressImage = img => {
@@ -101,23 +104,21 @@ class StartupContainer extends Component {
             />
       
       return (
-         <SafeAreaView style={{flex: 1}}>
-            <Container>
-               <Wrapper>
-                  <HeaderMovie>MOVIE FINDER !!!</HeaderMovie>
-                  <WrapperForm>
-                  <Input
-                     onChangeText={text => this.setState({searchQuery: text})}
-                     value={searchQuery}
-                  />
-                  <ButtonS onPress={this.handleSearch}>
-                     <Text>FIND</Text>
-                  </ButtonS>
-                  </WrapperForm>
-                  {theContent}
-               </Wrapper>
-            </Container>
-         </SafeAreaView>
+         <Container>
+            <Wrapper>
+               <HeaderMovie>MOVIE FINDER !!!</HeaderMovie>
+               <WrapperForm>
+               <Input
+                  onChangeText={text => this.setState({searchQuery: text})}
+                  value={searchQuery}
+               />
+               <ButtonS onPress={this.handleSearch}>
+                  <Text>FIND</Text>
+               </ButtonS>
+               </WrapperForm>
+               {theContent}
+            </Wrapper>
+         </Container>
       )
    }
 }

@@ -20,6 +20,22 @@ export const searchMovie = (searchCriteria, page = 1) => {
    ).then(e => dispatch(setMovies(e)))
 }
 
+export const searchMovieById = (id) => {
+   return call(
+      {
+         url: list.search,
+         method: 'get',
+         params: {
+            i: id,
+         }
+      },
+   ).then(e => e).catch(() => Alert.alert(
+      'Error',
+      response.data.Error,
+      {cancelable: false},
+   ))
+}
+
 const handlerSearchFailed = response => {
    const isError = response && response.data && response.data.Error
    if (isError) {

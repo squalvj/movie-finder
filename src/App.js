@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Animated} from 'react-native';
+import {Animated, SafeAreaView} from 'react-native';
 import ModalWrapper from 'components/Modal'
 import {
   createDrawerNavigator,
@@ -54,15 +54,17 @@ export default class App extends Component{
   render() {
     const AppContainer = createAppContainer(AppNavigator);
     return (
-      <Wrapper>
-        <AppContainer
-          screenProps={'locked-closed'}
-          ref={c => {
-            this.navigator = c;
-          }}
-        />
-        <ModalWrapper />
-      </Wrapper>
+      <SafeAreaView style={{flex: 1}}>
+        <Wrapper>
+          <AppContainer
+            screenProps={'locked-closed'}
+            ref={c => {
+              this.navigator = c;
+            }}
+          />
+          <ModalWrapper />
+        </Wrapper>
+      </SafeAreaView>
     );
   }
 }
