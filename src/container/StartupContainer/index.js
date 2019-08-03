@@ -133,7 +133,7 @@ class StartupContainer extends Component {
       } = this.state
       const theContent = isLoading && !isInfiniteScrollRun
          ? <Loader />
-         : <Wrapper style={{flex: 1}}>
+         : <Wrapper>
             <ScrollView style={{paddingBottom: 50}} onScroll={this.trackScroll} >
                {(movies.Search || []).map((item, index) => {
                   return this._renderItem(item, index)
