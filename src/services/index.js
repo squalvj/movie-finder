@@ -94,6 +94,7 @@ const resIntersceptor = response => {
 
 // GENERIC ERROR RESPPONSE HANDLING, E.G NO INTERNET
 const interceptResErr = error => {
+   dispatch(hideLoader())
    alert(error)
    return Promise.reject(error);
 }

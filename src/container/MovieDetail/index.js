@@ -7,8 +7,6 @@ import COMMONCSS from 'styles'
 import { get } from 'lodash'
 const {
    Wrapper,
-   Header,
-   Container,
    ButtonCommon
  } = COMMONCSS
 
@@ -35,14 +33,29 @@ const Back = styled(Text)`
 `;
 
 const WrapperPoster = styled(View)`
-   width: 100%;
-   max-height: 500px;
-   flex: 1;
+   height: 350px;
 `;
 
 const Title = styled(Text)`
    font-size: 38px;
    margin-top: 30px;
+   margin-bottom: 10px;
+`;
+
+const Bold = styled(Text)`
+   font-size: 17px;
+   font-weight: bold;
+`;
+
+const Normal = styled(Text)`
+   font-size: 14px;
+`;
+
+const Row = styled(View)`
+   flex-direction: row;
+   align-items: baseline;
+   flex-wrap: wrap;
+   margin-bottom: 5px;
 `;
 
 class MovieDetail extends Component {
@@ -68,15 +81,52 @@ class MovieDetail extends Component {
       
       const poster = get(movie, 'Poster', null)
       const title = get(movie, 'Title', '')
+      const director = get(movie, 'Director', '')
+      const actors = get(movie, 'Actors', '')
+      const genre = get(movie, 'Genre', '')
+      const plot = get(movie, 'Plot', '')
+      const ratings = get(movie, 'Ratings', []).map((e,i) => (
+         <Fragment key={i}>
+            <Row>
+               <Normal>Source: </Normal>
+               <Normal>{e.Source}</Normal>
+            </Row>
+            <Row>
+               <Normal>Rating: </Normal>
+               <Normal>{e.Value}</Normal>
+            </Row>
+         </Fragment>
+      ))
 
       const theContent = isLoading 
          ? <ActivityIndicator style={{flex: 1}} size="large" color="#0000ff" /> 
          : <WrapperContent>
             <WrapperPoster>
                <Image resizeMode={'contain'} style={{flex: 1}} source={{uri: poster}}/>
-               <Title>{title}</Title>
             </WrapperPoster>
+            <Title>{title}</Title>
+            <Row>
+               <Bold>Director: </Bold>
+               <Normal>{director}</Normal>
+            </Row>
+            <Row>
+               <Bold>Actors: </Bold>
+               <Normal>{actors}</Normal>
+            </Row>
+            <Row>
+               <Bold>Genre: </Bold>
+               <Normal>{genre}</Normal>
+            </Row>
+            <Row>
+               <Bold>Ratings: </Bold>
+            </Row>
+            {ratings}
+            <Row>
+               <Bold>Plot: </Bold>
+               <Normal>{plot}</Normal>
+            </Row>
          </WrapperContent>
+
       return (
          <ContainerMovieDetail>
             <WrapperNavbar>
@@ -84,7 +134,7 @@ class MovieDetail extends Component {
                   <Back>BACK</Back>
                </ButtonBack>
             </WrapperNavbar>
-            <ScrollView contentContainerStyle={{flex: 1}}>
+            <ScrollView style={{flex: 1}}>
                {theContent}
             </ScrollView>
          </ContainerMovieDetail>
@@ -92,7 +142,7 @@ class MovieDetail extends Component {
    }
 }
 
-function mapDispatchToProps(dispatch) {
+function mapDispatchToProps() {
    return {
      
    };
