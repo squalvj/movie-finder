@@ -2,7 +2,6 @@
   
 # MOVIE FINDER APK
 DISCLAIMER: This project doesnt contain android playstore certificate, so by default you cannot install the release version of this apk to your device, instead you can run the project via dev mode in order to test this in your device (if you are using genymotion or any virtual android device would be good).
-> Work smart, not work hard.
 
  - ✅ Redux & Redux dev tools
  - ✅ Styled Components
