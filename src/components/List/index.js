@@ -8,7 +8,7 @@ const {
  } = COMMONCSS
 
 const List = styled(Wrapper)`
-   padding: 15px;
+   padding: 15px 0;
    flex-direction: row;
    width: 100%;
 `;
