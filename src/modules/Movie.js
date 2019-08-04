@@ -7,7 +7,7 @@ import { dispatch } from 'utils'
 import { setMovies, addMovies } from 'reducers/Movie'
 
 export const searchMovie = (searchCriteria, page = 1) => {
-   call(
+   return call(
       {
          url: list.search,
          method: 'get',

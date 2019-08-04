@@ -66,9 +66,13 @@ class MovieDetail extends Component {
    }
 
    componentWillMount() {
-      const {navigation} = this.props
+      const { navigation } = this.props
       const id = navigation.getParam('id', '')
-      searchMovieById(id).then(e => this.setState({movie: e}))
+      searchMovieById(id)
+         .then(e => this.setState({movie: e}))
+         .catch(() => {
+            navigation.goBack()
+         })
    }
 
    render() {

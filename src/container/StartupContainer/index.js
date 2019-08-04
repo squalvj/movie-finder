@@ -51,7 +51,7 @@ class StartupContainer extends Component {
       this.state = {
          input: '',
          searchQuery: '',
-         isInfiniteScrollRun: true
+         isInfiniteScrollRun: false
       }
    }
 
@@ -61,11 +61,15 @@ class StartupContainer extends Component {
 
       // check if is loading and previous query same with now query, then dont do repetitive
       if (isLoading || searchQuery === input) return false;
-
+      
       this.setState({
          searchQuery: input,
          isInfiniteScrollRun: false
-      }, () => searchMovie(input));
+      }, () => {
+         searchMovie(input)
+            .then(e => e)
+            .catch(() => this.setState({searchQuery: ''}))
+      });
    }
 
    _renderItem = (item, index) => {
