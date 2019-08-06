@@ -18,7 +18,7 @@ DISCLAIMER: This project doesnt contain android playstore certificate, so by def
 
 # Requirement
 
- - node version 11.3.0 or newer, install nvm for managing the npm version :)
+ - node version 11.3.0 or newer, install nvm for managing the node version :)
  - npm version 6.4.1 or newer.
 
 # Folder Structure
